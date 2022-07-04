@@ -18,8 +18,8 @@ defmodule RumblWeb.Router do
     pipe_through :browser
 
 
-    get "/users", UsersController, :index
-    get "/users/:id", UsersController, :show
+    get "/users", UserController, :index
+    get "/users/:id", UserController, :show
 
     get "/", PageController, :index
   end
