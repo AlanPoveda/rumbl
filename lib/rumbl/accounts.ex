@@ -31,4 +31,9 @@ defmodule Rumbl.Accounts do
     Repo.get_by(User, params)
     # Enum.find(list_users(), &(Enum.all?(params, fn {key, val} -> Map.get(&1, key) == val end)))
   end
+
+  def change_user(%User{} = user) do
+    User.changeset(user, %{})
+  end
+
 end

@@ -1,6 +1,7 @@
 defmodule RumblWeb.UserController do
   use RumblWeb, :controller
   alias Rumbl.Accounts
+  alias Rumbl.Accounts.User
 
   def index(conn, _params) do
     users = Accounts.list_users()
@@ -13,5 +14,10 @@ defmodule RumblWeb.UserController do
       |> Accounts.get_user()
 
     render(conn, "show.html", user: user)
+  end
+
+  def new(conn, _params) do
+    changeset = Accounts.change_user(%User{})
+    render(conn, "new.html", changeset: changeset)
   end
 end
