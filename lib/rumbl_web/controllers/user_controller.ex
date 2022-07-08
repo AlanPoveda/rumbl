@@ -4,7 +4,6 @@ defmodule RumblWeb.UserController do
   alias Rumbl.Accounts.User
   plug :authenticate when action in [:index, :show]
 
-
   @doc """
   The index show the list of user, if the user is authenticated.
   """
@@ -26,11 +25,15 @@ defmodule RumblWeb.UserController do
     render(conn, "new.html", changeset: changeset)
   end
 
+  @doc """
+  Create a user a login the user the same time
+  return tho index page or error if not input the right values
+  """
   def create(conn, %{"user" => user_params}) do
-
     case Accounts.register_user(user_params) do
       {:ok, user} ->
         conn
+        |> RumblWeb.Auth.login(user)
         |> put_flash(:info, "#{user.name} created!")
         |> redirect(to: Routes.user_path(conn, :index))
 
@@ -38,6 +41,7 @@ defmodule RumblWeb.UserController do
         render(conn, "new.html", changeset: changeset)
     end
   end
+
   @doc """
   Return a conn if the user is authenticate
 
@@ -52,5 +56,4 @@ defmodule RumblWeb.UserController do
       |> halt()
     end
   end
-
 end
