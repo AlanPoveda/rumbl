@@ -19,6 +19,9 @@ defmodule RumblWeb.Auth do
     |> configure_session(renew: true)
   end
 
+  @doc """
+  This function is to logout the user, usin configure_session to drop the user session
+  """
   def logout(conn) do
     configure_session(conn, drop: true)
   end
